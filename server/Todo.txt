@@ -1,0 +1,49 @@
+1. Overview on Features, Requirements, API List, Database
+2. Dummy Data
+3. Email Credentials
+4. MongoDB Atlas
+5. Features Sequence
+    - Product
+    - Users
+    - Cart List
+    - Order/Invoice
+    - Order List / Invoice List
+    - Wish List
+    - Others Features
+
+6. Project Structure
+    - Controller
+    - Middlewares
+    - Model
+    - Routes
+    - Services
+    - Utility
+    - App.js
+    - Index.js
+
+7. Project Packages
+
+8. Product Associated API Development
+    - Controller
+    - Model #Brand #Category #Product #ProductDetails #ProductSlider #Review
+    - Routes
+    - Product associated dummy Data #Brand #Category #Product #ProductDetails #ProductSlider
+    - Product Business Logic Services
+        - BrandListService
+        - CategoryListService
+        - SliderListService
+        - ListByBrandService
+        - ListByCategoryService
+        - ListBySmilierService
+        - ListByRemarkService
+        - ListByKeywordService
+        - DetailsService
+        - ReviewListService
+
+9. User Associated API Development
+    - UserOTP
+    - VerifyLogin
+    - UserLogout
+    - CreateProfile
+    - UpdateProfile
+    - ReadProfile
