@@ -13,6 +13,7 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "ecommerce-backend-project": "file:..",
     "html-react-parser": "^5.2.2",
     "js-cookie": "^3.0.5",
     "lottie-react": "^2.4.0",

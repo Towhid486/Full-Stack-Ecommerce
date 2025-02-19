@@ -1,5 +1,5 @@
-import {React, useEffect} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import {useEffect} from 'react';
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import logo from "../assets/images/plainb-logo.svg"
 import ProductStore from '../store/ProductStore';
 import UserStore from './../store/UserStore';
@@ -8,13 +8,14 @@ import CartStore from '../store/CartStore';
 import WishStore from '../store/WishStore';
 const AppNavBar = () => {
     const {SearchKeyword,SetSearchKeyword} = ProductStore();
+    const location = useLocation()
     const {isLogin,UserLogoutRequest} = UserStore();
     const {CartCount,CartListRequest} = CartStore();
     const {WishCount,WishListRequest} = WishStore();
     const navigate = useNavigate(); // React Router's navigation hook
 
     const onLogout = async ()=>{
-        let res = await UserLogoutRequest()
+        await UserLogoutRequest()
         sessionStorage.clear();
         localStorage.clear();
         navigate('/')
@@ -26,8 +27,10 @@ const AppNavBar = () => {
                 await CartListRequest();
                 await WishListRequest();
             }
+            // Clear search input when URL changes
+            SetSearchKeyword("");
         })()
-    },[])
+    },[location])
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -77,7 +80,7 @@ const AppNavBar = () => {
                                             <span className='px-1'>Orders</span><i className="bi text-dark bi-truck"></i>
                                             {/* <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">{CartCount}</span> */}
                                         </Link>
-                                        <UserSubmitButton onClick={onLogout} text="Logout" className="Right-btn btn btn-success D-sm-visible D-lg-hidden mt-1 "/>
+                                        <UserSubmitButton onClick={onLogout} text="Logout" className="Right-btn btn btn-dark D-sm-visible D-lg-hidden mt-1 "/>
                                         {/* <Link type="button" className="btn ms-3 btn-success" to="/profile">Profile</Link> */}
                                     </>
                                 ): ""
@@ -102,7 +105,7 @@ const AppNavBar = () => {
                     
                     <div className="d-lg-flex width-100">
                         <div className="input-group">
-                            <input onKeyDown={handleKeyDown} value={SearchKeyword} onChange={(e)=>SetSearchKeyword(e.target.value)}  className="form-control" type="search" placeholder="Search" aria-label="Search" />
+                            <input onKeyDown={handleKeyDown} value={SearchKeyword} onChange={(e)=>SetSearchKeyword(e.target.value)}  className="form-control" type="search" placeholder="Search..." aria-label="Search" />
                             <Link to={SearchKeyword.length>0?`/by-keyword/${SearchKeyword}`: ""} className="btn btn-outline-dark" type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style=
                                     {{ width:24, height:24 }}>
@@ -125,7 +128,7 @@ const AppNavBar = () => {
                             {
                                 isLogin()?(
                                     <>
-                                        <UserSubmitButton onClick={onLogout} text="Logout" className="btn ms-3 btn-success d-flex D-sm-hidden"/>
+                                        <UserSubmitButton onClick={onLogout} text="Logout" className="btn ms-3 btn-dark d-flex D-sm-hidden"/>
                                         <Link type="button" className="btn ms-3 btn-success" to="/profile">Profile</Link>
                                     </>
                                 ):(

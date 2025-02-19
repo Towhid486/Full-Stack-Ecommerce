@@ -4,19 +4,26 @@ import CartSkeleton from '../../skeleton/cart-skeleton';
 import EmptyCartList from './empty-cart-list';
 import CartSubmitButton from './cartSubmitButton';
 import toast from 'react-hot-toast';
+import UserStore from "../../store/UserStore.js";
+import {useNavigate} from "react-router-dom";
 
 const CartList = () => {
     const {CartList,CartTotal,CartVatTotal,CartPayableTotal,CartListRequest,RemoveCartListRequest,CreateInvoiceRequest} = CartStore()
+    const {ProfileDetails, ProfileDetailsRequest} = UserStore()
+    const navigate = useNavigate();
+    const ProfilePageNavigate = ()=>{
+        navigate('/profile')
+    }
     useEffect(()=>{
         (async()=>{
             await CartListRequest()
+            await ProfileDetailsRequest()
         })()
-    },[])
+    },[CartListRequest])
 
     const remove = async(cartID)=>{
         await RemoveCartListRequest(cartID)
         toast.error("Cart Item Deleted")
-        await CartListRequest()
     }
 
     if(CartList===null){
@@ -66,9 +73,19 @@ const CartList = () => {
                                     <span className="float-end"> Payable: <i className="bi bi-currency-dollar" />{CartPayableTotal}</span>
                                 </li>
                                 <li className="list-group-item bg-transparent ">
-                                    <span className="float-end">
-                                    <CartSubmitButton text="Check Out " onClick={async ()=> {await CreateInvoiceRequest()}}className="btn px-5 mt-2 btn-success"/>
-                                    </span>
+                                    {
+                                        ProfileDetails===null ?(
+                                                <span className="float-end text-end">
+                                                    <p className=" h6 fw-bold m-0 text-dark"> Your Profile Is Not Completed To Checkout Please <i className="bi bi-arrow-down-circle"></i></p>
+                                                    <CartSubmitButton text="Complete Your Profile" onClick={ProfilePageNavigate} className="btn px-5 mt-2 btn-dark"/>
+                                                </span>
+                                            )
+                                            : (
+                                                <span className="float-end">
+                                                <CartSubmitButton text="Check Out " onClick={async () => {await CreateInvoiceRequest()}} className="btn px-5 mt-2 btn-success"/>
+                                            </span>
+                                            )
+                                    }
                                 </li>
                             </ul>
                         </div>
@@ -78,7 +95,7 @@ const CartList = () => {
             </div>
         )
     }
-    
+
 };
 
 export default CartList;

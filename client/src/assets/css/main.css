@@ -238,7 +238,7 @@ body {
     }
     .Right-btn{
         position: relative;
-          left: 71%;
+          /*left: 71%;*/
     }
 }
 @media (min-width: 768px) {

@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const ProfileForm = () => {
 
-    let {ProfileDetails,ProfileForm,ProfileFormChange,ProfileDetailsRequest,ProfileSaveRequest}=UserStore();
+    let {ProfileForm,ProfileFormChange,ProfileDetailsRequest,ProfileSaveRequest}=UserStore();
 
     useEffect(() => {
         (async ()=>{
@@ -23,7 +23,7 @@ const ProfileForm = () => {
     }
     
 
-    if(ProfileDetails===null){
+    if(ProfileForm===null){
         return (
             <ProfileSkeleton/>
         )
