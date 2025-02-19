@@ -23,6 +23,7 @@ mongoose.connect(DATABASE,{autoIndex:true}).then((res) =>{
 
 app.use(cookieParser())
 app.use(cors({
+    origin: "https://towhid-ecommerce-service.onrender.com",
     credentials:true,
 }));
 app.use(
