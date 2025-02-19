@@ -7,7 +7,9 @@ export default defineConfig({
   server:{
     proxy:{
       '/api/v1':{
-        target:"https://towhid-ecommerce-service.onrender.com"
+        target:"https://towhid-ecommerce-service.onrender.com",
+        secure:false,
+        changeOrigin: true,
       }
     }
   }
