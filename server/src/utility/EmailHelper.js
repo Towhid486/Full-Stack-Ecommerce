@@ -4,7 +4,7 @@ const EmailSend=async (EmailTo,EmailText,EmailSubject)=>{
 
     let  transport= nodemailer.createTransport({
         host:"smtp.gmail.com",
-        port:25,
+        port:587,
         secure:false,
         auth:{user:"developertowhid@gmail.com",pass:"zgieegvuihtdkjwo"},
         tls:{rejectUnauthorized:false}
