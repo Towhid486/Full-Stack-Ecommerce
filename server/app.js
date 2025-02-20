@@ -22,10 +22,13 @@ mongoose.connect(DATABASE,{autoIndex:true}).then((res) =>{
 })
 
 app.use(cookieParser())
-app.use(cors({
+
+const corsOptions = {
     origin: "https://towhid-ecommerce-service.onrender.com",
-    credentials:true,
-}));
+    methods: ["GET", "POST"],
+    credentials: true
+};
+app.use(cors(corsOptions));
 app.use(
     helmet.contentSecurityPolicy({
         useDefaults:true,
